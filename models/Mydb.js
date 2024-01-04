@@ -6,39 +6,68 @@ const { ObjectId } = require('mongodb');
 
 const mongoURI = process.env.MONGO_PRIVATE_URL + '/test';
 
-/*
-  This function creates a connection to MongoDB.
-*/
-const connectToDatabase = async () => {
-  try {
-    const client = await MongoClient.connect(mongoURI);
 
-    return client.db();
-    
+// Use the MONGO_PRIVATE_URL environment variable
+const mongoPrivateURL = process.env.MONGO_PRIVATE_URL;
+
+async function connectToMongoDB() {
+  const client = new MongoClient(mongoPrivateURL, { useNewUrlParser: true, useUnifiedTopology: true });
+  try {
+    await client.connect();
+    console.log('Connected to MongoDB using Private Networking');
+
+    // Example: Use the client to interact with the MongoDB database
+    // ...
+
   } catch (error) {
-    console.error('Error connecting to the database:', error);
-    throw error;
+    console.error('Error connecting to MongoDB:', error);
+  } finally {
+    // Ensure that the client is closed when your app shuts down
+    await client.close();
+  }
+}
+
+const getItemList = async () => {
+  try {
+    const db = await connectToMongoDB();
+  } catch (error) {
   }
 };
+
+
+/*
+//   This function creates a connection to MongoDB.
+// */
+// const connectToDatabase = async () => {
+//   try {
+//     const client = await MongoClient.connect(mongoURI);
+
+//     return client.db();
+    
+//   } catch (error) {
+//     console.error('Error connecting to the database:', error);
+//     throw error;
+//   }
+// };
 
 /*
  This function Use the connectToDatabase function to establish a connection to the database.
  Subsequently, it searches for all documents representing files.
  And return them.
 */
-const getItemList = async () => {
-  try {
-    const db = await connectToDatabase();
-    const codesCollection = db.collection('codes');
-    const itemList = await codesCollection.find().toArray();
+// const getItemList = async () => {
+//   try {
+//     const db = await connectToDatabase();
+//     const codesCollection = db.collection('codes');
+//     const itemList = await codesCollection.find().toArray();
 
-    return itemList;
+//     return itemList;
 
-  } catch (error) {
-    console.error('Error retrieving codes:', error);
-    throw error;
-  }
-};
+//   } catch (error) {
+//     console.error('Error retrieving codes:', error);
+//     throw error;
+//   }
+// };
 /*
 This function use the connectToDatabase function to establish a connection to the database. 
 It then searches for a record in the database using its unique ID and returns the corresponding code.

@@ -35,16 +35,28 @@ app.get('/', async (req, res) => {
     res.json({  "massage" : "hellow" });
 });
 
-app.get('/getCodeList', async (req, res) => {
+pp.get('/getCodeList', async (req, res) => {
     try {
+        console.log("inser /getCodeList");
         const codesList = await getItemList();
-        res.json({ codesList });
 
     } catch (error) {
         console.error('Error retrieving codes:', error);
         res.status(500).json({ error: 'Internal Server Error' });
     }
+    res.json({  "massage" : "work" });
 });
+
+// app.get('/getCodeList', async (req, res) => {
+//     try {
+//         const codesList = await getItemList();
+//         res.json({ codesList });
+
+//     } catch (error) {
+//         console.error('Error retrieving codes:', error);
+//         res.status(500).json({ error: 'Internal Server Error' });
+//     }
+// });
 
 /*
   Endpoint to retrieve whether a user associated with a codeId is a mentor.
