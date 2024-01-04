@@ -17,7 +17,7 @@ app.use(cors());
 const server = http.createServer(app);
 const io = socketIO(server, {
     cors: {
-      origin: 'http://localhost:3000', // Replace with your React app's URL
+      origin: '*', // Replace with your React app's URL
       methods: ['GET', 'POST'],
     },
   });
