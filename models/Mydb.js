@@ -20,18 +20,18 @@ async function connectToMongoDB() {
   }
 }
 
-// async function connectToDatabase() {
-//   const client = await connectToMongoDB();
-//   if (client) {
-//     return client.db(databaseName);
-//   } else {
-//     throw new Error('Unable to connect to the database');
-//   }
-// }
+async function connectToDatabase() {
+  const client = await connectToMongoDB();
+  if (client) {
+    return client.db(databaseName);
+  } else {
+    throw new Error('Unable to connect to the database');
+  }
+}
 
 const getItemList = async () => {
   try {
-    const db = await connectToMongoDB();
+    const db = await connectToDatabase();
     // Your code to interact with the database goes here
     // ...
   } catch (error) {
