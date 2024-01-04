@@ -29,16 +29,16 @@ async function connectToDatabase() {
   }
 }
 
-const getItemList = async () => {
-  try {
-    const db = await connectToDatabase();
-    // Your code to interact with the database goes here
-    // ...
-  } catch (error) {
-    console.error('Error retrieving codes:', error);
-    throw error;
-  }
-};
+// const getItemList = async () => {
+//   try {
+//     const db = await connectToDatabase();
+//     // Your code to interact with the database goes here
+//     // ...
+//   } catch (error) {
+//     console.error('Error retrieving codes:', error);
+//     throw error;
+//   }
+// };
 
 
 /*
@@ -61,19 +61,19 @@ const getItemList = async () => {
  Subsequently, it searches for all documents representing files.
  And return them.
 */
-// const getItemList = async () => {
-//   try {
-//     const db = await connectTodb();
-//     const codesCollection = db.collection('codes');
-//     const itemList = await codesCollection.find().toArray();
+const getItemList = async () => {
+  try {
+    const db = await connectToDatabase();
+    const codesCollection = db.collection('codes');
+    const itemList = await codesCollection.find().toArray();
 
-//     return itemList;
+    return itemList;
 
-//   } catch (error) {
-//     console.error('Error retrieving codes:', error);
-//     throw error;
-//   }
-// };
+  } catch (error) {
+    console.error('Error retrieving codes:', error);
+    throw error;
+  }
+};
 /*
 This function use the connectToDatabase function to establish a connection to the database. 
 It then searches for a record in the database using its unique ID and returns the corresponding code.
