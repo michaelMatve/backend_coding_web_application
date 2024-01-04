@@ -5,7 +5,7 @@ const { MongoClient } = require('mongodb');
 const { ObjectId } = require('mongodb');
 
 
-const mongoPrivateURL = 'mongodb.railway.internal';
+const mongoPrivateURL = 'mongodb://mongodb.railway.internal';
 const databaseName = 'test'; // Replace with your actual database name
 
 async function connectToMongoDB() {
@@ -20,18 +20,18 @@ async function connectToMongoDB() {
   }
 }
 
-async function connectToDatabase() {
-  const client = await connectToMongoDB();
-  if (client) {
-    return client.db(databaseName);
-  } else {
-    throw new Error('Unable to connect to the database');
-  }
-}
+// async function connectToDatabase() {
+//   const client = await connectToMongoDB();
+//   if (client) {
+//     return client.db(databaseName);
+//   } else {
+//     throw new Error('Unable to connect to the database');
+//   }
+// }
 
 const getItemList = async () => {
   try {
-    const db = await connectToDatabase();
+    const db = await connectToMongoDB();
     // Your code to interact with the database goes here
     // ...
   } catch (error) {
