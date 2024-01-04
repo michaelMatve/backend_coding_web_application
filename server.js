@@ -140,6 +140,10 @@ app.get('/get_code_block/:id', async (req, res) => {
 // });
 
 
-server.listen(port, () => {
-  console.log(`Server is running on http://localhost:${port}`);
-});
+// server.listen(port, () => {
+//   console.log(`Server is running on http://localhost:${port}`);
+// });
+
+app.listen(port, () => {
+    console.log(`Server is running on http://localhost:${port}`);
+  });
