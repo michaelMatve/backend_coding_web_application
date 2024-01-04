@@ -90,4 +90,4 @@ const getCodeById = async (codeId) => {
   }
 };
 
-module.exports = { connectToDatabase, getItemList, getCodeById };
+module.exports = { connectToMongoDB, getItemList, getCodeById };
