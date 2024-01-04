@@ -38,7 +38,7 @@ app.get('/', async (req, res) => {
 pp.get('/getCodeList', async (req, res) => {
     try {
         console.log("inser /getCodeList");
-        const codesList = await getItemList();
+        await getItemList();
 
     } catch (error) {
         console.error('Error retrieving codes:', error);
