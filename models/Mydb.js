@@ -4,12 +4,13 @@
 const { MongoClient } = require('mongodb');
 const { ObjectId } = require('mongodb');
 
-const mongoPrivateURL = process.env.MONGO_PRIVATE_URL;
 
+const mongoPrivateURL = process.env.MONGO_PRIVATE_URL;
+const databaseName = 'test'; // Replace with your actual database name
 
 async function connectToMongoDB() {
-  const client = new MongoClient(mongoPrivateURL, { useNewUrlParser: true, useUnifiedTopology: true });
   try {
+    const client = new MongoClient(mongoPrivateURL, { useNewUrlParser: true, useUnifiedTopology: true });
     await client.connect();
     console.log('Connected to MongoDB using Private Networking');
     return client;
@@ -18,26 +19,24 @@ async function connectToMongoDB() {
     return null;
   }
 }
-// async function connectTodb() {
-//   const client = connectToMongoDB()
-//   try {
-//     const db = client.db('test'); // 'test' is the name of your database
 
-//     // Now 'db' is the database instance that you can use for further operations
-//     return db;
-   
-//   } catch (error) {
-//     console.error('Error connecting to the database:', error);
-//     return null;
-//   }
-// }
+async function connectToDatabase() {
+  const client = await connectToMongoDB();
+  if (client) {
+    return client.db(databaseName);
+  } else {
+    throw new Error('Unable to connect to the database');
+  }
+}
 
 const getItemList = async () => {
   try {
-    await connectToMongoDB();
+    const db = await connectToDatabase();
+    // Your code to interact with the database goes here
+    // ...
   } catch (error) {
-      console.error('Error connecting to the database:', error);
-     throw error;
+    console.error('Error retrieving codes:', error);
+    throw error;
   }
 };
 
