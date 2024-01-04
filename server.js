@@ -79,7 +79,7 @@ app.get('/Mentor_id/:id', async (req, res) => {
 app.get('/get_code_block/:id', async (req, res) => {
     try {
         const codeId = req.params.id;
-        console.log(codeId);
+        // console.log(codeId);
         const mycode = await getCodeById(codeId);
 
         if (!mycode) {
@@ -138,8 +138,8 @@ io.on('connection', (socket) => {
         Each client decides whether to update the code based on their needs.
     */
     socket.on('updateCodeBody', (data) => {
-        console.log(data.newCode);
-        console.log(data.id);
+        // console.log(data.newCode);
+        // console.log(data.id);
 
         io.emit('updateCodeBody', data); 
     });

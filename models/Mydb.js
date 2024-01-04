@@ -17,7 +17,7 @@ async function connectToMongoDB() {
   try {
     const client = new MongoClient(mongoPrivateURL, { useNewUrlParser: true, useUnifiedTopology: true });
     await client.connect();
-    console.log('Connected to MongoDB using Private Networking');
+    // console.log('Connected to MongoDB using Private Networking');
     return client;
   } catch (error) {
     console.error('Error connecting to MongoDB:', error);
@@ -44,7 +44,7 @@ const getItemList = async () => {
     const db = await connectToDatabase();
     const codesCollection = db.collection('codes');
     const itemList = await codesCollection.find().toArray();
-    console.log(itemList);
+    // console.log(itemList);
     return itemList;
 
   } catch (error) {
