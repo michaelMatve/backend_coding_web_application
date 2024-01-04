@@ -23,26 +23,28 @@ async function connectToMongoDB() {
   }
 }
 
-async function connectTodb() {
-  const client = new MongoClient(mongoPrivateURL, { useNewUrlParser: true, useUnifiedTopology: true });
-  try {
-    const db = client.db('test'); // 'test' is the name of your database
-
-    // Now 'db' is the database instance that you can use for further operations
-    return db;
-   
-  } catch (error) {
-    console.error('Error connecting to the database:', error);
-    return null;
-  }
-}
-
-// const getItemList = async () => {
+// async function connectTodb() {
+//   const client = connectToMongoDB()
 //   try {
-//     const db = await connectTodb();
+//     const db = client.db('test'); // 'test' is the name of your database
+
+//     // Now 'db' is the database instance that you can use for further operations
+//     return db;
+   
 //   } catch (error) {
+//     console.error('Error connecting to the database:', error);
+//     return null;
 //   }
-// };
+// }
+
+const getItemList = async () => {
+  try {
+    await connectToMongoDB();
+  } catch (error) {
+      console.error('Error connecting to the database:', error);
+     throw error;
+  }
+};
 
 
 /*
@@ -65,19 +67,19 @@ async function connectTodb() {
  Subsequently, it searches for all documents representing files.
  And return them.
 */
-const getItemList = async () => {
-  try {
-    const db = await connectTodb();
-    const codesCollection = db.collection('codes');
-    const itemList = await codesCollection.find().toArray();
+// const getItemList = async () => {
+//   try {
+//     const db = await connectTodb();
+//     const codesCollection = db.collection('codes');
+//     const itemList = await codesCollection.find().toArray();
 
-    return itemList;
+//     return itemList;
 
-  } catch (error) {
-    console.error('Error retrieving codes:', error);
-    throw error;
-  }
-};
+//   } catch (error) {
+//     console.error('Error retrieving codes:', error);
+//     throw error;
+//   }
+// };
 /*
 This function use the connectToDatabase function to establish a connection to the database. 
 It then searches for a record in the database using its unique ID and returns the corresponding code.
