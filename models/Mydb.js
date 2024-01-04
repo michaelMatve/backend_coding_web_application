@@ -63,7 +63,7 @@ async function connectToDatabase() {
 */
 const getItemList = async () => {
   try {
-    const db = await connectTodb();
+    const db = await connectToDatabase();
     const codesCollection = db.collection('codes');
     const itemList = await codesCollection.find().toArray();
     console.log(itemList);
