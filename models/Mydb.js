@@ -5,7 +5,7 @@ const { MongoClient } = require('mongodb');
 const { ObjectId } = require('mongodb');
 
 
-const mongoPrivateURL = `mongodb://${process.env.MONGOUSER}:${process.env.MONGOPASSWORD}@mongodb.railway.internal:${process.env.MONGOPORT}`;
+const mongoPrivateURL = `mongodb://${process.env.MONGOUSER}:${process.env.MONGOPASSWORD}@mongodb.railway.internal`;
 const databaseName = 'test'; // Replace with your actual database name
 
 async function connectToMongoDB() {
