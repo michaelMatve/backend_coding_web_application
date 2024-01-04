@@ -1,7 +1,7 @@
 const express = require('express');
-const http = require('http');
-const socketIO = require('socket.io');
-const cors = require('cors');
+// const http = require('http');
+// const socketIO = require('socket.io');
+// const cors = require('cors');
 const { getItemList ,getCodeById } = require('./models/Mydb');
 
 //set the express app
@@ -13,14 +13,14 @@ Configure the Socket.IO server on the same port as the Express server.
 Implement CORS to enable the client-side server to send API requests,
 allowing clients to connect to the socket on port 3000.
 */
-app.use(cors());
-const server = http.createServer(app);
-const io = socketIO(server, {
-    cors: {
-      origin: '*', // Replace with your React app's URL
-      methods: ['GET', 'POST'],
-    },
-  });
+// app.use(cors());
+// const server = http.createServer(app);
+// const io = socketIO(server, {
+//     cors: {
+//       origin: 'http://localhost:3000', // Replace with your React app's URL
+//       methods: ['GET', 'POST'],
+//     },
+//   });
 
 /*
  This dictionary will help us track the currently used code IDs and determine whether the connected user should be a mentor or a student.
@@ -93,51 +93,51 @@ app.get('/get_code_block/:id', async (req, res) => {
     Real-time socket communication to enable mentors to view students' code in real-time.
     This functionality leverages sockets to provide a live update of the student's code to the mentor.
 */
-io.on('connection', (socket) => {
-    //Track the code on which the client is currently working.
-    const codeId = socket.handshake.query.codeId;
+// io.on('connection', (socket) => {
+//     //Track the code on which the client is currently working.
+//     const codeId = socket.handshake.query.codeId;
 
-    // Determine whether the connected client is a mentor or not.
-    let isMentor = socket.handshake.query.isMentor;
+//     // Determine whether the connected client is a mentor or not.
+//     let isMentor = socket.handshake.query.isMentor;
     
-    // If the 'isMentor' flag is not set to 0 or 1, check if there is a mentor assigned to the current codeID.
-    // If no mentor is found, set 'isMentor' to 1, indicating that the client is assigned the role of a mentor.
-    if(isMentor != 1 && isMentor != 0 && !(codeId in codes_id_used_by_mentors))
-    {
-        codes_id_used_by_mentors[codeId]=1;
-        isMentor = 1;
-    }
+//     // If the 'isMentor' flag is not set to 0 or 1, check if there is a mentor assigned to the current codeID.
+//     // If no mentor is found, set 'isMentor' to 1, indicating that the client is assigned the role of a mentor.
+//     if(isMentor != 1 && isMentor != 0 && !(codeId in codes_id_used_by_mentors))
+//     {
+//         codes_id_used_by_mentors[codeId]=1;
+//         isMentor = 1;
+//     }
 
 
-    if(isMentor == 1 ){
-        console.log(`A mentor connected on ${codeId}`);
+//     if(isMentor == 1 ){
+//         console.log(`A mentor connected on ${codeId}`);
     
-        socket.on('disconnect', () => {
-            // update the codes_id_used_by_mentors that the mentor for this codeId disconnect
-            delete codes_id_used_by_mentors[codeId];
-            console.log(`mentor disconnected on ${codeId}`);
-        });
-    }
-    else{
-        console.log(`A student connected on ${codeId}`);
+//         socket.on('disconnect', () => {
+//             // update the codes_id_used_by_mentors that the mentor for this codeId disconnect
+//             delete codes_id_used_by_mentors[codeId];
+//             console.log(`mentor disconnected on ${codeId}`);
+//         });
+//     }
+//     else{
+//         console.log(`A student connected on ${codeId}`);
     
-        socket.on('disconnect', () => {
+//         socket.on('disconnect', () => {
     
-            console.log(`student disconnected on ${codeId}`);
-        });
-    }
+//             console.log(`student disconnected on ${codeId}`);
+//         });
+//     }
 
-    /*
-        Broadcasts an update to all clients with the specified CodeId.
-        Each client decides whether to update the code based on their needs.
-    */
-    socket.on('updateCodeBody', (data) => {
-        console.log(data.newCode);
-        console.log(data.id);
+//     /*
+//         Broadcasts an update to all clients with the specified CodeId.
+//         Each client decides whether to update the code based on their needs.
+//     */
+//     socket.on('updateCodeBody', (data) => {
+//         console.log(data.newCode);
+//         console.log(data.id);
 
-        io.emit('updateCodeBody', data); 
-    });
-});
+//         io.emit('updateCodeBody', data); 
+//     });
+// });
 
 
 server.listen(port, () => {
