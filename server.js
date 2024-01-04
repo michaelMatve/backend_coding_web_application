@@ -31,6 +31,10 @@ let codes_id_used_by_mentors = {};
 /*
     Endpoint to retrieve a list of all code items from the database.
 */
+app.get('/', async (req, res) => {
+    res.json({  massage : "hellow" });
+});
+
 app.get('/getCodeList', async (req, res) => {
     try {
         const codesList = await getItemList();
