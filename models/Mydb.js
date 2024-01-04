@@ -4,7 +4,7 @@
 const { MongoClient } = require('mongodb');
 const { ObjectId } = require('mongodb');
 
-const mongoURI = 'mongodb://localhost:27017/test';
+const mongoURI = process.env.MONGO_PRIVATE_URL + '/test';
 
 /*
   This function creates a connection to MongoDB.
