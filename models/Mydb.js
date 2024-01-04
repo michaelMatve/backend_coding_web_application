@@ -4,25 +4,20 @@
 const { MongoClient } = require('mongodb');
 const { ObjectId } = require('mongodb');
 
-const mongoURI = process.env.MONGO_PRIVATE_URL + '/test';
-
-
-// Use the MONGO_PRIVATE_URL environment variable
 const mongoPrivateURL = process.env.MONGO_PRIVATE_URL;
+
 
 async function connectToMongoDB() {
   const client = new MongoClient(mongoPrivateURL, { useNewUrlParser: true, useUnifiedTopology: true });
   try {
     await client.connect();
     console.log('Connected to MongoDB using Private Networking');
-
     return client;
   } catch (error) {
     console.error('Error connecting to MongoDB:', error);
     return null;
   }
 }
-
 // async function connectTodb() {
 //   const client = connectToMongoDB()
 //   try {
