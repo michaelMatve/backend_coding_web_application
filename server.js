@@ -35,17 +35,11 @@ app.get('/', async (req, res) => {
     res.json({  "massage" : "hellow" });
 });
 
-// app.get('/getCodeList', async (req, res) => {
-//     try {
-//         console.log("inser /getCodeList");
-//         await getItemList();
-
-//     } catch (error) {
-//         console.error('Error retrieving codes:', error);
-//         res.status(500).json({ error: 'Internal Server Error' });
-//     }
-//     res.json({  "massage" : "work" });
-// });
+/*
+ This dictionary will help us track the currently used code IDs and determine whether the connected user should be a mentor or a student.
+  When a mentor connects, it inserts the code ID into the dictionary, indicating that a mentor is currently connected.
+  Upon disconnection, we can identify that a mentor has disconnected, allowing for the connection of the next mentor.
+*/
 
 app.get('/getCodeList', async (req, res) => {
     try {
