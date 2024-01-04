@@ -16,20 +16,30 @@ async function connectToMongoDB() {
     await client.connect();
     console.log('Connected to MongoDB using Private Networking');
 
-    // Example: Use the client to interact with the MongoDB database
-    // ...
-
+    return client;
   } catch (error) {
     console.error('Error connecting to MongoDB:', error);
-  } finally {
-    // Ensure that the client is closed when your app shuts down
-    await client.close();
+    return null;
+  }
+}
+
+async function connectTodb(client) {
+  const client = new MongoClient(mongoPrivateURL, { useNewUrlParser: true, useUnifiedTopology: true });
+  try {
+    const db = client.db('test'); // 'test' is the name of your database
+
+    // Now 'db' is the database instance that you can use for further operations
+    return db;
+   
+  } catch (error) {
+    console.error('Error connecting to the database:', error);
+    return null;
   }
 }
 
 const getItemList = async () => {
   try {
-    const db = await connectToMongoDB();
+    const db = await connectTodb();
   } catch (error) {
   }
 };
