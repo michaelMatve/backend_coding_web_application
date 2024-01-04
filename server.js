@@ -35,7 +35,7 @@ app.get('/', async (req, res) => {
     res.json({  "massage" : "hellow" });
 });
 
-pp.get('/getCodeList', async (req, res) => {
+app.get('/getCodeList', async (req, res) => {
     try {
         console.log("inser /getCodeList");
         await getItemList();
