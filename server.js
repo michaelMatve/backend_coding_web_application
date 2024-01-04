@@ -17,7 +17,7 @@ app.use(cors());
 const server = http.createServer(app);
 const io = socketIO(server, {
     cors: {
-      origin: 'http://frontend_coding_web_application.railway.internal', // Replace with your React app's URL
+      origin: 'http://frontend_coding_web_application.railway.internal:7946', // Replace with your React app's URL
       methods: ['GET', 'POST'],
     },
   });
