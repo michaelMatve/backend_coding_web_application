@@ -23,7 +23,7 @@ async function connectToMongoDB() {
   }
 }
 
-async function connectTodb(client) {
+async function connectTodb() {
   const client = new MongoClient(mongoPrivateURL, { useNewUrlParser: true, useUnifiedTopology: true });
   try {
     const db = client.db('test'); // 'test' is the name of your database
